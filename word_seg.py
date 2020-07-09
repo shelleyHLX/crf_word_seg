@@ -89,11 +89,11 @@ import keras.backend as K  # 引入Keras后端来自定义loss，注意Keras模�
 # 必须要通过Keras后端完成，比如取对数要用K.log不能用np.log
 
 embedding_size = 128
-sequence = Input(shape=(None,), dtype='int32') # 建立输入层，输入长度设为None
+sequence = Input(shape=(None,), dtype='int32') # 建立输入层，输入长度设为None，不包括batch size
 embedding = Embedding(len(chars)+1,
                       embedding_size,
                      )(sequence) # 去掉了mask_zero=True
-cnn = Conv1D(128, 3, activation='relu', padding='same')(embedding)
+cnn = Conv1D(128, 3, activation='relu', padding='same')(embedding)  # 一个句子的卷积，一维，Conv2d是二维，图像
 cnn = Conv1D(128, 3, activation='relu', padding='same')(cnn)
 cnn = Conv1D(128, 3, activation='relu', padding='same')(cnn) # 层叠了3层CNN
 
